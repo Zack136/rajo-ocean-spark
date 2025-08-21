@@ -224,7 +224,7 @@ export function Navigation() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.2 }}
-      className="absolute top-full left-0 mt-2 w-80 bg-card dark:bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden"
+      className="absolute top-full left-0 mt-2 mx-4 max-w-md bg-card dark:bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden"
     >
       {item.dropdown?.map((dropdownItem, index) => (
         <motion.button
@@ -233,7 +233,7 @@ export function Navigation() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: index * 0.05, duration: 0.2 }}
           onClick={() => handleNavClick(dropdownItem.href)}
-          className="w-full text-left p-4 hover:bg-accent/50 transition-colors duration-200 flex items-start space-x-3 group"
+          className="w-full text-left px-4 py-2 mx-2 my-1 rounded-lg hover:bg-accent/50 transition-colors duration-200 flex items-start space-x-3 group"
         >
           <div className="flex-shrink-0 text-primary group-hover:scale-110 transition-transform duration-200">
             {dropdownItem.icon}
@@ -259,9 +259,9 @@ export function Navigation() {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -10, scale: 0.95 }}
       transition={{ duration: 0.3 }}
-      className="absolute top-full left-0 mt-2 w-[800px] bg-card dark:bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden"
+      className="absolute top-full left-0 mt-2 mx-4 max-w-4xl bg-card dark:bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden"
     >
-      <div className="p-6">
+      <div className="px-4 py-2">
         <h3 className="text-lg font-semibold text-foreground mb-4">Our Services</h3>
         <div className="grid grid-cols-2 gap-4">
           {item.dropdown?.map((service, index) => (
@@ -308,9 +308,9 @@ export function Navigation() {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -10, scale: 0.95 }}
       transition={{ duration: 0.3 }}
-      className="absolute top-full left-0 mt-2 w-[600px] bg-card dark:bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden"
+      className="absolute top-full left-0 mt-2 mx-4 max-w-2xl bg-card dark:bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden"
     >
-      <div className="p-6">
+      <div className="px-4 py-2">
         <h3 className="text-lg font-semibold text-foreground mb-4">Our Work</h3>
         <div className="space-y-3">
           {item.dropdown?.map((project, index) => (
@@ -478,7 +478,7 @@ export function Navigation() {
                               <button
                                 key={dropdownItem.label}
                                 onClick={() => handleNavClick(dropdownItem.href)}
-                                className="flex items-start space-x-3 w-full text-left text-white/80 hover:text-white transition-colors duration-200 py-3 px-3 rounded-md hover:bg-white/5 border border-white/10"
+                                className="flex items-start space-x-3 w-full text-left text-white/80 hover:text-white transition-colors duration-200 px-4 py-2 mx-2 my-1 rounded-md hover:bg-white/5 border border-white/10"
                               >
                                 {dropdownItem.icon && (
                                   <div className="flex-shrink-0 text-white/60 mt-0.5">
