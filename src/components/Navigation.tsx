@@ -259,7 +259,7 @@ export function Navigation() {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -10, scale: 0.95 }}
       transition={{ duration: 0.3 }}
-      className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[800px] bg-card dark:bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden"
+      className="absolute top-full left-0 mt-2 w-[800px] bg-card dark:bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden"
     >
       <div className="p-6">
         <h3 className="text-lg font-semibold text-foreground mb-4">Our Services</h3>
