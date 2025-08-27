@@ -224,7 +224,7 @@ export function Navigation() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.2 }}
-      className="absolute top-full left-0 mt-2 mx-4 max-w-md bg-card dark:bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden"
+      className="absolute top-full left-0 mt-2 w-48 bg-card dark:bg-card border border-border rounded-xl shadow-xl z-50 overflow-hidden"
     >
       {item.dropdown?.map((dropdownItem, index) => (
         <motion.button
@@ -233,17 +233,17 @@ export function Navigation() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: index * 0.05, duration: 0.2 }}
           onClick={() => handleNavClick(dropdownItem.href)}
-          className="w-full text-left px-4 py-2 mx-2 my-1 rounded-lg hover:bg-accent/50 transition-colors duration-200 flex items-start space-x-3 group"
+          className="w-full text-left px-3 py-3 hover:bg-accent/50 transition-colors duration-200 flex items-start space-x-3 group"
         >
-          <div className="flex-shrink-0 text-primary group-hover:scale-110 transition-transform duration-200">
+          <div className="flex-shrink-0 text-primary group-hover:scale-110 transition-transform duration-200 mt-0.5">
             {dropdownItem.icon}
           </div>
-          <div>
-            <h4 className="font-medium text-foreground group-hover:text-primary transition-colors duration-200">
+          <div className="flex-1 min-w-0">
+            <h4 className="font-medium text-foreground group-hover:text-primary transition-colors duration-200 text-sm">
               {dropdownItem.label}
             </h4>
             {dropdownItem.description && (
-              <p className="text-sm text-muted-foreground mt-1">
+              <p className="text-xs text-muted-foreground mt-1 leading-tight">
                 {dropdownItem.description}
               </p>
             )}
@@ -366,16 +366,20 @@ export function Navigation() {
           }
         `}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl ml-4 mr-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <motion.button
               onClick={scrollToTop}
-              className="text-2xl font-bold text-white cursor-pointer"
+              className="flex items-center space-x-3 text-2xl font-bold text-white cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Rajo Solutions
+              {/* HOPE Icon */}
+              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center text-sm font-bold tracking-wider">
+                HOPE
+              </div>
+              <span>Rajo Solutions</span>
             </motion.button>
 
             {/* Desktop Navigation */}
