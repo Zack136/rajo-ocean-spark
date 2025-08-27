@@ -379,7 +379,7 @@ export function Navigation() {
               <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center text-sm font-bold tracking-wider">
                 HOPE
               </div>
-              <span>Rajo Solutions</span>
+              <span>Rajo</span>
             </motion.button>
 
             {/* Desktop Navigation */}
