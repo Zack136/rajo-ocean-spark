@@ -1,7 +1,11 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
 
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const getResend = () => {
+  const apiKey = Deno.env.get("RESEND_API_KEY");
+  if (!apiKey) return null;
+  return new Resend(apiKey);
+};
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -27,6 +31,15 @@ const handler = async (req: Request): Promise<Response> => {
     const { name, email, phone, service, message }: ContactFormData = await req.json();
 
     console.log("Received contact form submission:", { name, email, service });
+
+    const resend = getResend();
+    if (!resend) {
+      console.error("RESEND_API_KEY is missing");
+      return new Response(
+        JSON.stringify({ success: false, error: "Email service not configured. Please try again later." }),
+        { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
 
     // Send email to business
     const emailResponse = await resend.emails.send({
