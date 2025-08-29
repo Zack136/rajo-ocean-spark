@@ -33,12 +33,18 @@ export function Contact() {
     setIsSubmitting(true);
 
     try {
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      };
+
       const { data, error } = await supabase.functions.invoke('send-contact-email', {
-        body: formData
+        body: payload,
       });
 
-      if (error) {
-        console.error('Error sending email:', error);
+      if (error || !data?.success) {
+        console.error('Error sending email:', error || data);
         toast({
           title: "Error",
           description: "Failed to send message. Please try again later.",
