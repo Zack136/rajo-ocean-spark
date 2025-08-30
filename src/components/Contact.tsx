@@ -31,6 +31,8 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    
+    console.log('Form submitted with data:', formData);
 
     try {
       const payload = {
@@ -38,10 +40,14 @@ export function Contact() {
         email: formData.email,
         message: formData.message,
       };
+      
+      console.log('Sending payload to edge function:', payload);
 
       const { data, error } = await supabase.functions.invoke('send-contact-email', {
         body: payload,
       });
+      
+      console.log('Edge function response:', { data, error });
 
       if (error || !data?.success) {
         console.error('Error sending email:', error || data);
