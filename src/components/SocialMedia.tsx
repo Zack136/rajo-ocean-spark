@@ -18,7 +18,7 @@ const socialPlatforms = [
   {
     name: 'TikTok',
     icon: TikTokIcon,
-    url: 'https://tiktok.com/@rajosolutions',
+    url: 'https://www.tiktok.com/@rajo.solutions?_t=ZM-8zOchR9IOlM&_r=1',
     color: 'hover:bg-black hover:text-white',
     description: 'Creative content & trends'
   },
