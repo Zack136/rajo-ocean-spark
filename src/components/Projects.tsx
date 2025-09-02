@@ -3,42 +3,50 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ExternalLink } from 'lucide-react';
 
+// Import project images
+import ecommercePlatform from '@/assets/projects/ecommerce-platform.jpg';
+import brandIdentity from '@/assets/projects/brand-identity.jpg';
+import marketingCampaign from '@/assets/projects/marketing-campaign.jpg';
+import businessConsulting from '@/assets/projects/business-consulting.jpg';
+import mobileApp from '@/assets/projects/mobile-app.jpg';
+import corporateWebsite from '@/assets/projects/corporate-website.jpg';
+
 const projects = [
   {
     title: 'E-commerce Platform',
     category: 'Web Development',
     description: 'Modern e-commerce solution with advanced features and seamless user experience.',
-    image: '/placeholder.svg'
+    image: ecommercePlatform
   },
   {
     title: 'Brand Identity Design',
     category: 'Graphic Design',
     description: 'Complete brand makeover including logo, color palette, and marketing materials.',
-    image: '/placeholder.svg'
+    image: brandIdentity
   },
   {
     title: 'Digital Marketing Campaign',
     category: 'Marketing',
     description: 'Multi-channel marketing strategy that increased client engagement by 300%.',
-    image: '/placeholder.svg'
+    image: marketingCampaign
   },
   {
     title: 'Business Transformation',
     category: 'Consulting',
     description: 'Strategic consulting project that optimized operations and boosted revenue.',
-    image: '/placeholder.svg'
+    image: businessConsulting
   },
   {
     title: 'Mobile App Design',
     category: 'Design & Development',
     description: 'User-centric mobile application with intuitive interface and robust functionality.',
-    image: '/placeholder.svg'
+    image: mobileApp
   },
   {
     title: 'Corporate Website',
     category: 'Web Development',
     description: 'Professional corporate website with CMS integration and SEO optimization.',
-    image: '/placeholder.svg'
+    image: corporateWebsite
   }
 ];
 

@@ -31,51 +31,45 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    console.log('Form submitted with data:', formData);
 
     try {
-      const payload = {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-      };
-      
-      console.log('Sending payload to edge function:', payload);
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || null,
+          service: formData.service || null,
+          message: formData.message,
+        });
 
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
-        body: payload,
-      });
-      
-      console.log('Edge function response:', { data, error });
-
-      if (error || !data?.success) {
-        console.error('Error sending email:', error || data);
+      if (error) {
+        console.error('Error saving contact submission:', error);
         toast({
           title: "Error",
-          description: "Failed to send message. Please try again later.",
+          description: "Failed to send message. Please try again.",
           variant: "destructive",
         });
-        return;
+      } else {
+        toast({
+          title: "Message sent successfully!",
+          description: "We'll get back to you soon.",
+        });
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: '',
+        });
       }
-
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for your interest. We'll get back to you soon.",
-      });
-
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        service: '',
-        message: ''
-      });
     } catch (error) {
       console.error('Error submitting form:', error);
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again later.",
+        description: "Failed to send message. Please try again.",
         variant: "destructive",
       });
     } finally {
