@@ -36,5 +36,5 @@ port = 54329
 [[edge-runtime.ip_version]]
 version = "ipv4"
 
-[functions.send-contact-email]
+[functions.send-order-email]
 verify_jwt = false

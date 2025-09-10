@@ -33,8 +33,9 @@ export function Contact() {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase
-        .from('contact_submissions')
+      // Save to orders table
+      const { error: dbError } = await supabase
+        .from('orders')
         .insert({
           name: formData.name,
           email: formData.email,
@@ -43,28 +44,40 @@ export function Contact() {
           message: formData.message,
         });
 
-      if (error) {
-        console.error('Error saving contact submission:', error);
-        toast({
-          title: "Error",
-          description: "Failed to send message. Please try again.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Message sent successfully!",
-          description: "We'll get back to you soon.",
-        });
-        
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          service: '',
-          message: '',
-        });
+      if (dbError) {
+        console.error('Error saving order:', dbError);
+        throw new Error('Failed to save order');
       }
+
+      // Send email notification
+      const { error: emailError } = await supabase.functions.invoke('send-order-email', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          message: formData.message,
+        }
+      });
+
+      if (emailError) {
+        console.error('Error sending email:', emailError);
+        // Don't throw error here - order was saved, email failure is not critical
+      }
+
+      toast({
+        title: "✅ Your request has been submitted successfully!",
+        description: "We will contact you soon!",
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: '',
+      });
     } catch (error) {
       console.error('Error submitting form:', error);
       toast({
@@ -125,7 +138,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="font-semibold">Email Us</h4>
-                  <p className="text-muted-foreground">contact@rajosolutions.com</p>
+                  <p className="text-muted-foreground">info.rajosolutions@gmail.com</p>
                 </div>
               </div>
 
