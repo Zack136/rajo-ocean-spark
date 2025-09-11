@@ -33,41 +33,48 @@ export function Contact() {
     setIsSubmitting(true);
 
     try {
-      // Save to orders table
+      // Save to contacts table
       const { error: dbError } = await supabase
-        .from('orders')
+        .from('contacts')
         .insert({
           name: formData.name,
           email: formData.email,
           phone: formData.phone || null,
-          service: formData.service || null,
           message: formData.message,
         });
 
       if (dbError) {
-        console.error('Error saving order:', dbError);
-        throw new Error('Failed to save order');
+        console.error('Error saving contact:', dbError);
+        throw new Error('Failed to save contact');
       }
 
       // Send email notification
-      const { error: emailError } = await supabase.functions.invoke('send-order-email', {
+      const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
         body: {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
           service: formData.service,
           message: formData.message,
+          date: new Date().toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          }),
         }
       });
 
       if (emailError) {
         console.error('Error sending email:', emailError);
-        // Don't throw error here - order was saved, email failure is not critical
+        // Don't throw error here - contact was saved, email failure is not critical
       }
 
       toast({
-        title: "✅ Your request has been submitted successfully!",
-        description: "We will contact you soon!",
+        title: "✅ Thank you for contacting us! We will get back to you shortly.",
+        description: "Your message has been received successfully.",
       });
       
       // Reset form
