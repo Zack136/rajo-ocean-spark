@@ -49,7 +49,7 @@ export function Contact() {
       }
 
       // Send email notification
-      const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
+      const { data: emailResult, error: emailError } = await supabase.functions.invoke('send-contact-email', {
         body: {
           name: formData.name,
           email: formData.email,
@@ -67,15 +67,21 @@ export function Contact() {
         }
       });
 
-      if (emailError) {
-        console.error('Error sending email:', emailError);
-        // Don't throw error here - contact was saved, email failure is not critical
+      // Check if email was sent successfully
+      const emailSent = emailResult?.emailSent === true;
+      
+      if (emailError || !emailSent) {
+        console.error('Error sending email:', emailError || 'Email not sent');
+        toast({
+          title: "✅ Your request has been saved. We'll contact you shortly.",
+          description: "Your message has been received successfully.",
+        });
+      } else {
+        toast({
+          title: "✅ Thank you for contacting us! We will get back to you shortly.",
+          description: "Your message has been received successfully.",
+        });
       }
-
-      toast({
-        title: "✅ Thank you for contacting us! We will get back to you shortly.",
-        description: "Your message has been received successfully.",
-      });
       
       // Reset form
       setFormData({

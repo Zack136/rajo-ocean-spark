@@ -41,6 +41,42 @@ export type Database = {
         }
         Relationships: []
       }
+      email_errors: {
+        Row: {
+          context: string | null
+          created_at: string
+          error_message: string | null
+          function_name: string
+          id: string
+          payload: Json | null
+          recipient: string | null
+          status_code: number | null
+          subject: string | null
+        }
+        Insert: {
+          context?: string | null
+          created_at?: string
+          error_message?: string | null
+          function_name: string
+          id?: string
+          payload?: Json | null
+          recipient?: string | null
+          status_code?: number | null
+          subject?: string | null
+        }
+        Update: {
+          context?: string | null
+          created_at?: string
+          error_message?: string | null
+          function_name?: string
+          id?: string
+          payload?: Json | null
+          recipient?: string | null
+          status_code?: number | null
+          subject?: string | null
+        }
+        Relationships: []
+      }
       orders: {
         Row: {
           created_at: string

@@ -1,7 +1,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.56.1';
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const supabase = createClient(
+  Deno.env.get('SUPABASE_URL')!,
+  Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+);
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -241,27 +246,70 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const orderData: OrderEmailRequest = await req.json();
 
-    // Send email to info.rajosolutions@gmail.com
-    const emailResponse = await resend.emails.send({
-      from: "Rajo Ocean Spark <onboarding@resend.dev>",
-      to: ["info.rajosolutions@gmail.com"],
-      subject: "🌊 New Service Request - Rajo Ocean Spark",
-      html: generateEmailHTML(orderData),
-    });
+    let emailSent = false;
+    
+    try {
+      // Send email to info.rajosolutions@gmail.com
+      const emailResponse = await resend.emails.send({
+        from: "Rajo Ocean Spark <noreply@rajosolutions.com>",
+        to: ["info.rajosolutions@gmail.com"],
+        subject: "📩 New Request from Rajo Ocean Spark Website",
+        html: generateEmailHTML(orderData),
+      });
 
-    console.log("Order email sent successfully:", emailResponse);
+      console.log("Order email sent successfully:", emailResponse);
+      emailSent = true;
 
-    return new Response(JSON.stringify({ success: true, emailResponse }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        ...corsHeaders,
-      },
-    });
+      return new Response(JSON.stringify({ 
+        success: true, 
+        emailSent: true, 
+        emailResponse 
+      }), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          ...corsHeaders,
+        },
+      });
+    } catch (emailError: any) {
+      console.error("Email sending failed:", emailError);
+      
+      // Log email error to Supabase
+      try {
+        await supabase.from('email_errors').insert({
+          function_name: 'send-order-email',
+          context: 'order_form_submission',
+          recipient: 'info.rajosolutions@gmail.com',
+          subject: "📩 New Request from Rajo Ocean Spark Website",
+          payload: orderData,
+          error_message: emailError.message,
+          status_code: emailError.statusCode || 500
+        });
+      } catch (logError) {
+        console.error("Failed to log email error:", logError);
+      }
+
+      // Return success with emailSent: false (form data was still saved)
+      return new Response(JSON.stringify({ 
+        success: true, 
+        emailSent: false, 
+        error: emailError.message 
+      }), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          ...corsHeaders,
+        },
+      });
+    }
   } catch (error: any) {
     console.error("Error in send-order-email function:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        success: false, 
+        emailSent: false, 
+        error: error.message 
+      }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
