@@ -5,10 +5,10 @@ import { Linkedin, Twitter, Github } from 'lucide-react';
 
 const teamMembers = [
   {
-    name: 'Alex Rodriguez',
-    role: 'Creative Director',
+    name: 'Farhan Hashi Jimcale',
+    role: 'Founder & Consultant',
     image: '/placeholder.svg',
-    bio: 'Leading creative vision with 10+ years in design and branding.',
+    bio: 'Visionary leader driving innovation and strategic business growth.',
     social: {
       linkedin: '#',
       twitter: '#',
@@ -16,10 +16,10 @@ const teamMembers = [
     }
   },
   {
-    name: 'Sarah Chen',
-    role: 'Lead Developer',
+    name: 'Zakrie Abdi Mohamed',
+    role: 'Owner & Project Manager',
     image: '/placeholder.svg',
-    bio: 'Full-stack developer specializing in modern web technologies.',
+    bio: 'Expert project manager ensuring seamless delivery and client satisfaction.',
     social: {
       linkedin: '#',
       twitter: '#',
@@ -27,10 +27,21 @@ const teamMembers = [
     }
   },
   {
-    name: 'Marcus Johnson',
+    name: 'Zakari Feysal Noor',
+    role: 'Lead Developer & Designer',
+    image: '/placeholder.svg',
+    bio: 'Full-stack developer and creative designer crafting exceptional digital experiences.',
+    social: {
+      linkedin: '#',
+      twitter: '#',
+      github: '#'
+    }
+  },
+  {
+    name: 'Sudeys Mohamud Ibrahim',
     role: 'Marketing Strategist',
     image: '/placeholder.svg',
-    bio: 'Digital marketing expert with proven track record of growth.',
+    bio: 'Strategic marketing professional driving brand growth and audience engagement.',
     social: {
       linkedin: '#',
       twitter: '#',
@@ -38,10 +49,10 @@ const teamMembers = [
     }
   },
   {
-    name: 'Elena Vasquez',
-    role: 'Business Consultant',
+    name: 'Ahmed Mohamed Ahmed',
+    role: 'Content Creator Specialist',
     image: '/placeholder.svg',
-    bio: 'Strategic advisor helping businesses optimize and scale.',
+    bio: 'Creative content specialist producing compelling digital narratives and visual stories.',
     social: {
       linkedin: '#',
       twitter: '#',
@@ -72,7 +83,7 @@ export function Team() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 justify-items-center">
           {teamMembers.map((member, index) => (
             <motion.div
               key={member.name}
