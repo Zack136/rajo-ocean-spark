@@ -16,7 +16,7 @@ const teamMembers = [
     }
   },
   {
-    name: 'Zakrie Abdi Mohamed',
+    name: 'Zakaria Abdi Mohamed',
     role: 'Owner & Project Manager',
     image: '/placeholder.svg',
     bio: 'Expert project manager ensuring seamless delivery and client satisfaction.',
@@ -27,7 +27,7 @@ const teamMembers = [
     }
   },
   {
-    name: 'Zakari Feysal Noor',
+    name: 'Zakaria Faisel Noor',
     role: 'Lead Developer & Designer',
     image: '/placeholder.svg',
     bio: 'Full-stack developer and creative designer crafting exceptional digital experiences.',
